@@ -8,7 +8,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>勉強カード</title>
+<title>study tracker</title>
 
 <style>
 
@@ -110,8 +110,6 @@ h1 {
 
 }
 
-/* 塗りつぶされたマス */
-
 .cell.filled {
 
   background: #222;
@@ -119,8 +117,6 @@ h1 {
   border-color: #222;
 
 }
-
-/* 塗りつぶすアニメーション */
 
 .cell.animate {
 
@@ -254,6 +250,22 @@ button:active {
 
 }
 
+/* クッキー総数 */
+
+.cookie-count {
+
+  text-align: center;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+  margin-top: 10px;
+
+}
+
+/* 合計時間 */
+
 .total {
 
   text-align: center;
@@ -263,6 +275,8 @@ button:active {
   font-weight: bold;
 
 }
+
+/* 設定 */
 
 .settings {
 
@@ -296,6 +310,16 @@ input {
 
 }
 
+/* リセットボタン */
+
+.reset-button {
+
+  background: #d9534f;
+
+  margin-top: 10px;
+
+}
+
 </style>
 
 </head>
@@ -305,6 +329,8 @@ input {
 <div class="container">
 
 <h1>📚study tracker✏️</h1>
+
+<!-- 基本情報 -->
 
 <div class="card">
 
@@ -332,6 +358,20 @@ input {
 
 </div>
 
+<!-- クッキー総数 -->
+
+<div class="card">
+
+  <div class="cookie-count">
+
+    🍪 クッキー：<span id="cookieCount">0</span>枚
+
+  </div>
+
+</div>
+
+<!-- 現在のカード -->
+
 <div class="card">
 
   <h2>現在のカード</h2>
@@ -355,6 +395,8 @@ input {
   <div class="cookie-area" id="cookieArea"></div>
 
 </div>
+
+<!-- 設定 -->
 
 <div class="card settings">
 
@@ -381,6 +423,26 @@ input {
   <button class="small-button" onclick="saveSettings()">
 
     設定を保存
+
+  </button>
+
+</div>
+
+<!-- リセット -->
+
+<div class="card">
+
+  <h2>データリセット</h2>
+
+  <button
+
+    class="reset-button"
+
+    onclick="resetData()"
+
+  >
+
+    🔄 すべてリセット
 
   </button>
 
@@ -418,7 +480,9 @@ let data = {
 
 ========================= */
 
-const savedData = localStorage.getItem("studyCardData");
+const savedData =
+
+  localStorage.getItem("studyCardData");
 
 if (savedData) {
 
@@ -490,7 +554,23 @@ function showTotalTime() {
 
   text += restMinutes + "分";
 
-  document.getElementById("totalTime").textContent = text;
+  document.getElementById("totalTime").textContent =
+
+    text;
+
+}
+
+/* =========================
+
+   クッキー数の表示
+
+========================= */
+
+function showCookieCount() {
+
+  document.getElementById("cookieCount").textContent =
+
+    data.cookies;
 
 }
 
@@ -502,13 +582,17 @@ function showTotalTime() {
 
 function createGrid(animationIndex = -1) {
 
-  const grid = document.getElementById("grid");
+  const grid =
+
+    document.getElementById("grid");
 
   grid.innerHTML = "";
 
   for (let i = 0; i < 60; i++) {
 
-    const cell = document.createElement("div");
+    const cell =
+
+      document.createElement("div");
 
     cell.className = "cell";
 
@@ -554,7 +638,7 @@ function fillCell() {
 
   }
 
-  /* 次のマス */
+  /* 塗るマス */
 
   const animationIndex = data.count;
 
@@ -562,7 +646,17 @@ function fillCell() {
 
   /* 勉強時間を追加 */
 
-  data.totalMinutes += data.minutesPerCell;
+  data.totalMinutes +=
+
+    data.minutesPerCell;
+
+  /* 10マスごとにクッキー */
+
+  if (data.count % 10 === 0) {
+
+    getCookie();
+
+  }
 
   saveData();
 
@@ -570,11 +664,11 @@ function fillCell() {
 
   showTotalTime();
 
+  showCookieCount();
+
   /* 60マス完成 */
 
   if (data.count === 60) {
-
-    getCookie();
 
     setTimeout(function() {
 
@@ -596,13 +690,17 @@ function getCookie() {
 
   data.cookies++;
 
-  saveData();
+  const area =
 
-  const area = document.getElementById("cookieArea");
+    document.getElementById("cookieArea");
 
   area.innerHTML = "";
 
-  const cookie = document.createElement("div");
+  /* クッキー */
+
+  const cookie =
+
+    document.createElement("div");
 
   cookie.className = "cookie";
 
@@ -610,9 +708,15 @@ function getCookie() {
 
   area.appendChild(cookie);
 
-  const message = document.createElement("div");
+  /* メッセージ */
 
-  message.className = "reward-message";
+  const message =
+
+    document.createElement("div");
+
+  message.className =
+
+    "reward-message";
 
   message.textContent =
 
@@ -654,7 +758,9 @@ function saveSettings() {
 
     document.getElementById("minutesInput");
 
-  const value = Number(input.value);
+  const value =
+
+    Number(input.value);
 
   if (value < 1) {
 
@@ -676,6 +782,62 @@ function saveSettings() {
 
 /* =========================
 
+   データをリセット
+
+========================= */
+
+function resetData() {
+
+  const result =
+
+    confirm(
+
+      "勉強時間、カード、クッキーなどのデータをすべてリセットしますか？"
+
+    );
+
+  if (!result) {
+
+    return;
+
+  }
+
+  data = {
+
+    startDate: new Date().toISOString(),
+
+    sheet: 1,
+
+    count: 0,
+
+    totalMinutes: 0,
+
+    minutesPerCell: 25,
+
+    cookies: 0
+
+  };
+
+  saveData();
+
+  document.getElementById("minutesInput").value =
+
+    data.minutesPerCell;
+
+  document.getElementById("cookieArea").innerHTML = "";
+
+  showStartDate();
+
+  showTotalTime();
+
+  showCookieCount();
+
+  createGrid();
+
+}
+
+/* =========================
+
    最初の表示
 
 ========================= */
@@ -687,6 +849,8 @@ document.getElementById("minutesInput").value =
 showStartDate();
 
 showTotalTime();
+
+showCookieCount();
 
 createGrid();
 
