@@ -34,4 +34,162 @@ body {
 
   max-width: 700px;
 
+  margin: auto;
+
+  padding: 20px;
+
+}
+
+h1 {
+
+  font-size: 26px;
+
+}
+
+.card {
+
+  background: white;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  padding: 20px;
+
+  margin-bottom: 15px;
+
+}
+
+.grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(10, 1fr);
+
+  gap: 5px;
+
+}
+
+.cell {
+
+  aspect-ratio: 1;
+
+  border: 1px solid #ccc;
+
+  border-radius: 4px;
+
+}
+
+.cell.filled {
+
+  background: #222;
+
+}
+
+button {
+
+  padding: 12px 20px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: #222;
+
+  color: white;
+
+  font-size: 16px;
+
+}
+
+.time {
+
+  font-size: 40px;
+
+  text-align: center;
+
+  margin: 20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>勉強トラッカー</h1>
+
+<div class="card">
+
+<p>開始日：2026/9/20</p>
+
+<p>合計勉強時間：0分</p>
+
+</div>
+
+<div class="card">
+
+<div class="time">25:00</div>
+
+<button onclick="fillCell()">
+
+1マス埋める
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>1枚目</h2>
+
+<div class="grid" id="grid"></div>
+
+<p id="count">0 / 60</p>
+
+</div>
+
+</div>
+
+<script>
+
+let count = 0;
+
+const grid = document.getElementById("grid");
+
+for (let i = 0; i < 60; i++) {
+
+  const cell = document.createElement("div");
+
+  cell.className = "cell";
+
+  grid.appendChild(cell);
+
+}
+
+function fillCell() {
+
+  if (count >= 60) {
+
+    return;
+
+  }
+
+  grid.children[count].classList.add("filled");
+
+  count++;
+
+  document.getElementById("count").textContent =
+
+    count + " / 60";
+
+}
+
+</script>
+
+</body>
+
 </html>
