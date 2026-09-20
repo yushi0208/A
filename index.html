@@ -8,7 +8,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>勉強トラッカー</title>
+<title>勉強カード</title>
 
 <style>
 
@@ -22,11 +22,11 @@ body {
 
   margin: 0;
 
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-
-  background: #f7f7f7;
+  background: #f5f5f5;
 
   color: #222;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
 
 }
 
@@ -42,7 +42,9 @@ body {
 
 h1 {
 
-  font-size: 26px;
+  text-align: center;
+
+  margin-bottom: 20px;
 
 }
 
@@ -50,13 +52,37 @@ h1 {
 
   background: white;
 
-  border: 1px solid #ddd;
-
-  border-radius: 12px;
+  border-radius: 16px;
 
   padding: 20px;
 
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+
+}
+
+.info {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+}
+
+.info-box {
+
+  background: #f3f3f3;
+
+  padding: 10px 14px;
+
+  border-radius: 10px;
 
 }
 
@@ -66,7 +92,9 @@ h1 {
 
   grid-template-columns: repeat(10, 1fr);
 
-  gap: 5px;
+  gap: 6px;
+
+  margin-top: 15px;
 
 }
 
@@ -74,41 +102,197 @@ h1 {
 
   aspect-ratio: 1;
 
-  border: 1px solid #ccc;
+  border: 2px solid #ddd;
 
-  border-radius: 4px;
+  border-radius: 6px;
+
+  background: white;
 
 }
+
+/* 塗りつぶされたマス */
 
 .cell.filled {
 
   background: #222;
 
+  border-color: #222;
+
+}
+
+/* 塗りつぶすアニメーション */
+
+.cell.animate {
+
+  animation: fillAnimation 0.5s ease;
+
+}
+
+@keyframes fillAnimation {
+
+  0% {
+
+    transform: scale(0.5);
+
+    opacity: 0;
+
+  }
+
+  60% {
+
+    transform: scale(1.15);
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    transform: scale(1);
+
+    opacity: 1;
+
+  }
+
 }
 
 button {
 
-  padding: 12px 20px;
+  width: 100%;
 
-  border: 0;
+  padding: 16px;
 
-  border-radius: 8px;
+  border: none;
+
+  border-radius: 12px;
 
   background: #222;
 
   color: white;
 
-  font-size: 16px;
+  font-size: 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
 
 }
 
-.time {
+button:active {
 
-  font-size: 40px;
+  transform: scale(0.97);
+
+}
+
+.progress {
 
   text-align: center;
 
-  margin: 20px;
+  font-size: 18px;
+
+  margin-top: 15px;
+
+}
+
+/* クッキー */
+
+.cookie-area {
+
+  text-align: center;
+
+  margin-top: 20px;
+
+  min-height: 70px;
+
+}
+
+.cookie {
+
+  display: inline-block;
+
+  font-size: 45px;
+
+  animation: cookieGet 0.6s ease;
+
+}
+
+@keyframes cookieGet {
+
+  0% {
+
+    transform: scale(0) rotate(-30deg);
+
+    opacity: 0;
+
+  }
+
+  60% {
+
+    transform: scale(1.3) rotate(10deg);
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    transform: scale(1) rotate(0);
+
+    opacity: 1;
+
+  }
+
+}
+
+.reward-message {
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  margin-top: 5px;
+
+}
+
+.total {
+
+  text-align: center;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+}
+
+.settings {
+
+  margin-top: 20px;
+
+}
+
+input {
+
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+
+  margin-top: 8px;
+
+}
+
+.small-button {
+
+  margin-top: 10px;
+
+  padding: 10px;
+
+  font-size: 14px;
 
 }
 
@@ -120,35 +304,85 @@ button {
 
 <div class="container">
 
-<h1>勉強トラッカー</h1>
+<h1>📚study tracker✏️</h1>
 
 <div class="card">
 
-<p>開始日：2026/9/20</p>
+  <div class="info">
 
-<p>合計勉強時間：0分</p>
+    <div class="info-box">
+
+      開始日：<span id="startDate"></span>
+
+    </div>
+
+    <div class="info-box">
+
+      カード：<span id="sheetNumber">1</span>枚目
+
+    </div>
+
+  </div>
+
+  <div class="total">
+
+    合計勉強時間：<span id="totalTime">0分</span>
+
+  </div>
 
 </div>
 
 <div class="card">
 
-<div class="time">25:00</div>
+  <h2>現在のカード</h2>
 
-<button onclick="fillCell()">
+  <div class="grid" id="grid"></div>
 
-1マス埋める
+  <div class="progress">
 
-</button>
+    <span id="progress">0</span> / 60 マス
+
+  </div>
+
+  <br>
+
+  <button onclick="fillCell()">
+
+    1マス塗りつぶす
+
+  </button>
+
+  <div class="cookie-area" id="cookieArea"></div>
 
 </div>
 
-<div class="card">
+<div class="card settings">
 
-<h2>1枚目</h2>
+  <h2>設定</h2>
 
-<div class="grid" id="grid"></div>
+  <label>
 
-<p id="count">0 / 60</p>
+    1マス＝何分勉強したことにする？
+
+  </label>
+
+  <input
+
+    type="number"
+
+    id="minutesInput"
+
+    min="1"
+
+    value="25"
+
+  >
+
+  <button class="small-button" onclick="saveSettings()">
+
+    設定を保存
+
+  </button>
 
 </div>
 
@@ -156,37 +390,305 @@ button {
 
 <script>
 
-let count = 0;
+/* =========================
 
-const grid = document.getElementById("grid");
+   データ
 
-for (let i = 0; i < 60; i++) {
+========================= */
 
-  const cell = document.createElement("div");
+let data = {
 
-  cell.className = "cell";
+  startDate: new Date().toISOString(),
 
-  grid.appendChild(cell);
+  sheet: 1,
+
+  count: 0,
+
+  totalMinutes: 0,
+
+  minutesPerCell: 25,
+
+  cookies: 0
+
+};
+
+/* =========================
+
+   保存データを読み込む
+
+========================= */
+
+const savedData = localStorage.getItem("studyCardData");
+
+if (savedData) {
+
+  data = JSON.parse(savedData);
 
 }
 
+/* =========================
+
+   データを保存
+
+========================= */
+
+function saveData() {
+
+  localStorage.setItem(
+
+    "studyCardData",
+
+    JSON.stringify(data)
+
+  );
+
+}
+
+/* =========================
+
+   開始日の表示
+
+========================= */
+
+function showStartDate() {
+
+  const date = new Date(data.startDate);
+
+  const year = date.getFullYear();
+
+  const month = date.getMonth() + 1;
+
+  const day = date.getDate();
+
+  document.getElementById("startDate").textContent =
+
+    year + "/" + month + "/" + day;
+
+}
+
+/* =========================
+
+   合計時間の表示
+
+========================= */
+
+function showTotalTime() {
+
+  const minutes = data.totalMinutes;
+
+  const hours = Math.floor(minutes / 60);
+
+  const restMinutes = minutes % 60;
+
+  let text = "";
+
+  if (hours > 0) {
+
+    text += hours + "時間 ";
+
+  }
+
+  text += restMinutes + "分";
+
+  document.getElementById("totalTime").textContent = text;
+
+}
+
+/* =========================
+
+   グリッド作成
+
+========================= */
+
+function createGrid(animationIndex = -1) {
+
+  const grid = document.getElementById("grid");
+
+  grid.innerHTML = "";
+
+  for (let i = 0; i < 60; i++) {
+
+    const cell = document.createElement("div");
+
+    cell.className = "cell";
+
+    if (i < data.count) {
+
+      cell.classList.add("filled");
+
+    }
+
+    if (i === animationIndex) {
+
+      cell.classList.add("animate");
+
+    }
+
+    grid.appendChild(cell);
+
+  }
+
+  document.getElementById("progress").textContent =
+
+    data.count;
+
+  document.getElementById("sheetNumber").textContent =
+
+    data.sheet;
+
+}
+
+/* =========================
+
+   マスを1つ塗る
+
+========================= */
+
 function fillCell() {
 
-  if (count >= 60) {
+  /* 60マス終わっていたら何もしない */
+
+  if (data.count >= 60) {
 
     return;
 
   }
 
-  grid.children[count].classList.add("filled");
+  /* 次のマス */
 
-  count++;
+  const animationIndex = data.count;
 
-  document.getElementById("count").textContent =
+  data.count++;
 
-    count + " / 60";
+  /* 勉強時間を追加 */
+
+  data.totalMinutes += data.minutesPerCell;
+
+  saveData();
+
+  createGrid(animationIndex);
+
+  showTotalTime();
+
+  /* 60マス完成 */
+
+  if (data.count === 60) {
+
+    getCookie();
+
+    setTimeout(function() {
+
+      nextSheet();
+
+    }, 1800);
+
+  }
 
 }
+
+/* =========================
+
+   クッキーをゲット
+
+========================= */
+
+function getCookie() {
+
+  data.cookies++;
+
+  saveData();
+
+  const area = document.getElementById("cookieArea");
+
+  area.innerHTML = "";
+
+  const cookie = document.createElement("div");
+
+  cookie.className = "cookie";
+
+  cookie.textContent = "🍪";
+
+  area.appendChild(cookie);
+
+  const message = document.createElement("div");
+
+  message.className = "reward-message";
+
+  message.textContent =
+
+    "1列完成！クッキーを1個ゲット！";
+
+  area.appendChild(message);
+
+}
+
+/* =========================
+
+   次のカード
+
+========================= */
+
+function nextSheet() {
+
+  data.sheet++;
+
+  data.count = 0;
+
+  saveData();
+
+  document.getElementById("cookieArea").innerHTML = "";
+
+  createGrid();
+
+}
+
+/* =========================
+
+   設定を保存
+
+========================= */
+
+function saveSettings() {
+
+  const input =
+
+    document.getElementById("minutesInput");
+
+  const value = Number(input.value);
+
+  if (value < 1) {
+
+    return;
+
+  }
+
+  data.minutesPerCell = value;
+
+  saveData();
+
+  alert(
+
+    "1マス " + value + "分に設定しました！"
+
+  );
+
+}
+
+/* =========================
+
+   最初の表示
+
+========================= */
+
+document.getElementById("minutesInput").value =
+
+  data.minutesPerCell;
+
+showStartDate();
+
+showTotalTime();
+
+createGrid();
 
 </script>
 
