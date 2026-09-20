@@ -6,17 +6,29 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+
+      content="width=device-width, initial-scale=1.0">
+
+<title>Study Tracker</title>
+
+<!-- アプリ用設定 -->
 
 <link rel="manifest" href="manifest.json">
 
 <meta name="theme-color" content="#222222">
 
+<!-- iPhoneのホーム画面アイコン -->
+
 <link rel="apple-touch-icon" href="icon.png">
-  
-<title>study tracker</title>
 
 <style>
+
+/* =========================
+
+   基本
+
+========================= */
 
 * {
 
@@ -26,25 +38,21 @@
 
 body {
 
-<div id="splash">
-
-  <div class="splash-content">
-
-    <img src="splash.png">
-
-  </div>
-
-</div>
-  
   margin: 0;
 
   background: #f5f5f5;
 
   color: #222;
 
-/* ========================= 起動画面 ========================= */ #splash { position: fixed; inset: 0; background: #f5f5f5; display: flex; justify-content: center; align-items: center; z-index: 9999; animation: splashFade 0.5s ease 1.5s forwards; } .splash-content { width: 100%; height: 100%; } .splash-content img { width: 100%; height: 100%; object-fit: cover; } @keyframes splashFade { 0% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-  
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  font-family:
+
+    -apple-system,
+
+    BlinkMacSystemFont,
+
+    "Helvetica Neue",
+
+    sans-serif;
 
 }
 
@@ -66,6 +74,84 @@ h1 {
 
 }
 
+/* =========================
+
+   起動画面
+
+========================= */
+
+#splash {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: #f5f5f5;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 9999;
+
+  animation:
+
+    splashFade
+
+    0.5s
+
+    ease
+
+    1.5s
+
+    forwards;
+
+}
+
+.splash-content {
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+.splash-content img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+}
+
+@keyframes splashFade {
+
+  0% {
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+  }
+
+}
+
+/* =========================
+
+   カード
+
+========================= */
+
 .card {
 
   background: white;
@@ -76,9 +162,19 @@ h1 {
 
   margin-bottom: 20px;
 
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  box-shadow:
+
+    0 3px 12px
+
+    rgba(0,0,0,0.08);
 
 }
+
+/* =========================
+
+   情報
+
+========================= */
 
 .info {
 
@@ -104,11 +200,51 @@ h1 {
 
 }
 
+/* =========================
+
+   合計勉強時間
+
+========================= */
+
+.total {
+
+  text-align: center;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+}
+
+/* =========================
+
+   クッキー枚数
+
+========================= */
+
+.cookie-count {
+
+  text-align: center;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+}
+
+/* =========================
+
+   60マス
+
+========================= */
+
 .grid {
 
   display: grid;
 
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns:
+
+    repeat(10, 1fr);
 
   gap: 6px;
 
@@ -120,13 +256,17 @@ h1 {
 
   aspect-ratio: 1;
 
-  border: 2px solid #ddd;
+  border:
+
+    2px solid #ddd;
 
   border-radius: 6px;
 
   background: white;
 
 }
+
+/* 塗りつぶされたマス */
 
 .cell.filled {
 
@@ -136,9 +276,21 @@ h1 {
 
 }
 
+/* =========================
+
+   マスのアニメーション
+
+========================= */
+
 .cell.animate {
 
-  animation: fillAnimation 0.5s ease;
+  animation:
+
+    fillAnimation
+
+    0.5s
+
+    ease;
 
 }
 
@@ -170,6 +322,28 @@ h1 {
 
 }
 
+/* =========================
+
+   進行状況
+
+========================= */
+
+.progress {
+
+  text-align: center;
+
+  font-size: 18px;
+
+  margin-top: 15px;
+
+}
+
+/* =========================
+
+   ボタン
+
+========================= */
+
 button {
 
   width: 100%;
@@ -194,21 +368,17 @@ button {
 
 button:active {
 
-  transform: scale(0.97);
+  transform:
+
+    scale(0.97);
 
 }
 
-.progress {
+/* =========================
 
-  text-align: center;
+   クッキー獲得
 
-  font-size: 18px;
-
-  margin-top: 15px;
-
-}
-
-/* クッキー */
+========================= */
 
 .cookie-area {
 
@@ -226,7 +396,13 @@ button:active {
 
   font-size: 45px;
 
-  animation: cookieGet 0.6s ease;
+  animation:
+
+    cookieGet
+
+    0.6s
+
+    ease;
 
 }
 
@@ -234,7 +410,11 @@ button:active {
 
   0% {
 
-    transform: scale(0) rotate(-30deg);
+    transform:
+
+      scale(0)
+
+      rotate(-30deg);
 
     opacity: 0;
 
@@ -242,7 +422,11 @@ button:active {
 
   60% {
 
-    transform: scale(1.3) rotate(10deg);
+    transform:
+
+      scale(1.3)
+
+      rotate(10deg);
 
     opacity: 1;
 
@@ -250,7 +434,11 @@ button:active {
 
   100% {
 
-    transform: scale(1) rotate(0);
+    transform:
+
+      scale(1)
+
+      rotate(0);
 
     opacity: 1;
 
@@ -268,33 +456,11 @@ button:active {
 
 }
 
-/* クッキー総数 */
+/* =========================
 
-.cookie-count {
+   設定
 
-  text-align: center;
-
-  font-size: 24px;
-
-  font-weight: bold;
-
-  margin-top: 10px;
-
-}
-
-/* 合計時間 */
-
-.total {
-
-  text-align: center;
-
-  font-size: 22px;
-
-  font-weight: bold;
-
-}
-
-/* 設定 */
+========================= */
 
 .settings {
 
@@ -308,7 +474,9 @@ input {
 
   padding: 12px;
 
-  border: 1px solid #ccc;
+  border:
+
+    1px solid #ccc;
 
   border-radius: 8px;
 
@@ -328,7 +496,11 @@ input {
 
 }
 
-/* リセットボタン */
+/* =========================
+
+   リセットボタン
+
+========================= */
 
 .reset-button {
 
@@ -344,11 +516,43 @@ input {
 
 <body>
 
+<!-- =========================
+
+     起動画面
+
+========================= -->
+
+<div id="splash">
+
+  <div class="splash-content">
+
+    <img
+
+      src="splash.png"
+
+      alt="Study Tracker"
+
+    >
+
+  </div>
+
+</div>
+
+<!-- =========================
+
+     メイン
+
+========================= -->
+
 <div class="container">
 
-<h1>📚study tracker✏️</h1>
+<h1>📚 Study Tracker ✏️</h1>
 
-<!-- 基本情報 -->
+<!-- =========================
+
+     基本情報
+
+========================= -->
 
 <div class="card">
 
@@ -356,13 +560,25 @@ input {
 
     <div class="info-box">
 
-      開始日：<span id="startDate"></span>
+      開始日：
+
+      <span id="startDate">
+
+      </span>
 
     </div>
 
     <div class="info-box">
 
-      カード：<span id="sheetNumber">1</span>枚目
+      カード：
+
+      <span id="sheetNumber">
+
+        1
+
+      </span>
+
+      枚目
 
     </div>
 
@@ -370,55 +586,109 @@ input {
 
   <div class="total">
 
-    合計勉強時間：<span id="totalTime">0分</span>
+    合計勉強時間：
+
+    <span id="totalTime">
+
+      0分
+
+    </span>
 
   </div>
 
 </div>
 
-<!-- クッキー総数 -->
+<!-- =========================
+
+     クッキー
+
+========================= -->
 
 <div class="card">
 
   <div class="cookie-count">
 
-    🍪 クッキー：<span id="cookieCount">0</span>枚
+    🍪 クッキー：
+
+    <span id="cookieCount">
+
+      0
+
+    </span>
+
+    枚
 
   </div>
 
 </div>
 
-<!-- 現在のカード -->
+<!-- =========================
+
+     現在のカード
+
+========================= -->
 
 <div class="card">
 
-  <h2>現在のカード</h2>
+  <h2>
 
-  <div class="grid" id="grid"></div>
+    現在のカード
+
+  </h2>
+
+  <div
+
+    class="grid"
+
+    id="grid">
+
+  </div>
 
   <div class="progress">
 
-    <span id="progress">0</span> / 60 マス
+    <span id="progress">
+
+      0
+
+    </span>
+
+    / 60 マス
 
   </div>
 
   <br>
 
-  <button onclick="fillCell()">
+  <button
+
+    onclick="fillCell()">
 
     1マス塗りつぶす
 
   </button>
 
-  <div class="cookie-area" id="cookieArea"></div>
+  <div
+
+    class="cookie-area"
+
+    id="cookieArea">
+
+  </div>
 
 </div>
 
-<!-- 設定 -->
+<!-- =========================
+
+     設定
+
+========================= -->
 
 <div class="card settings">
 
-  <h2>設定</h2>
+  <h2>
+
+    設定
+
+  </h2>
 
   <label>
 
@@ -438,7 +708,11 @@ input {
 
   >
 
-  <button class="small-button" onclick="saveSettings()">
+  <button
+
+    class="small-button"
+
+    onclick="saveSettings()">
 
     設定を保存
 
@@ -446,19 +720,25 @@ input {
 
 </div>
 
-<!-- リセット -->
+<!-- =========================
+
+     リセット
+
+========================= -->
 
 <div class="card">
 
-  <h2>データリセット</h2>
+  <h2>
+
+    データリセット
+
+  </h2>
 
   <button
 
     class="reset-button"
 
-    onclick="resetData()"
-
-  >
+    onclick="resetData()">
 
     🔄 すべてリセット
 
@@ -478,7 +758,9 @@ input {
 
 let data = {
 
-  startDate: new Date().toISOString(),
+  startDate:
+
+    new Date().toISOString(),
 
   sheet: 1,
 
@@ -500,11 +782,17 @@ let data = {
 
 const savedData =
 
-  localStorage.getItem("studyCardData");
+  localStorage.getItem(
+
+    "studyCardData"
+
+  );
 
 if (savedData) {
 
-  data = JSON.parse(savedData);
+  data =
+
+    JSON.parse(savedData);
 
 }
 
@@ -534,61 +822,107 @@ function saveData() {
 
 function showStartDate() {
 
-  const date = new Date(data.startDate);
+  const date =
 
-  const year = date.getFullYear();
+    new Date(data.startDate);
 
-  const month = date.getMonth() + 1;
+  const year =
 
-  const day = date.getDate();
+    date.getFullYear();
 
-  document.getElementById("startDate").textContent =
+  const month =
 
-    year + "/" + month + "/" + day;
+    date.getMonth() + 1;
+
+  const day =
+
+    date.getDate();
+
+  document
+
+    .getElementById("startDate")
+
+    .textContent =
+
+      year +
+
+      "/" +
+
+      month +
+
+      "/" +
+
+      day;
 
 }
 
 /* =========================
 
-   合計時間の表示
+   合計時間
 
 ========================= */
 
 function showTotalTime() {
 
-  const minutes = data.totalMinutes;
+  const minutes =
 
-  const hours = Math.floor(minutes / 60);
+    data.totalMinutes;
 
-  const restMinutes = minutes % 60;
+  const hours =
+
+    Math.floor(
+
+      minutes / 60
+
+    );
+
+  const restMinutes =
+
+    minutes % 60;
 
   let text = "";
 
   if (hours > 0) {
 
-    text += hours + "時間 ";
+    text +=
+
+      hours +
+
+      "時間 ";
 
   }
 
-  text += restMinutes + "分";
+  text +=
 
-  document.getElementById("totalTime").textContent =
+    restMinutes +
 
-    text;
+    "分";
+
+  document
+
+    .getElementById("totalTime")
+
+    .textContent =
+
+      text;
 
 }
 
 /* =========================
 
-   クッキー数の表示
+   クッキー枚数
 
 ========================= */
 
 function showCookieCount() {
 
-  document.getElementById("cookieCount").textContent =
+  document
 
-    data.cookies;
+    .getElementById("cookieCount")
+
+    .textContent =
+
+      data.cookies;
 
 }
 
@@ -598,67 +932,131 @@ function showCookieCount() {
 
 ========================= */
 
-function createGrid(animationIndex = -1) {
+function createGrid(
+
+  animationIndex = -1
+
+) {
 
   const grid =
 
-    document.getElementById("grid");
+    document.getElementById(
+
+      "grid"
+
+    );
 
   grid.innerHTML = "";
 
-  for (let i = 0; i < 60; i++) {
+  for (
+
+    let i = 0;
+
+    i < 60;
+
+    i++
+
+  ) {
 
     const cell =
 
-      document.createElement("div");
+      document.createElement(
 
-    cell.className = "cell";
+        "div"
 
-    if (i < data.count) {
+      );
 
-      cell.classList.add("filled");
+    cell.className =
+
+      "cell";
+
+    if (
+
+      i < data.count
+
+    ) {
+
+      cell.classList.add(
+
+        "filled"
+
+      );
 
     }
 
-    if (i === animationIndex) {
+    if (
 
-      cell.classList.add("animate");
+      i === animationIndex
+
+    ) {
+
+      cell.classList.add(
+
+        "animate"
+
+      );
 
     }
 
-    grid.appendChild(cell);
+    grid.appendChild(
+
+      cell
+
+    );
 
   }
 
-  document.getElementById("progress").textContent =
+  document
 
-    data.count;
+    .getElementById(
 
-  document.getElementById("sheetNumber").textContent =
+      "progress"
 
-    data.sheet;
+    )
+
+    .textContent =
+
+      data.count;
+
+  document
+
+    .getElementById(
+
+      "sheetNumber"
+
+    )
+
+    .textContent =
+
+      data.sheet;
 
 }
 
 /* =========================
 
-   マスを1つ塗る
+   1マス塗る
 
 ========================= */
 
 function fillCell() {
 
-  /* 60マス終わっていたら何もしない */
+  /* 60マス完成済み */
 
-  if (data.count >= 60) {
+  if (
+
+    data.count >= 60
+
+  ) {
 
     return;
 
   }
 
-  /* 塗るマス */
+  /* 今回塗るマス */
 
-  const animationIndex = data.count;
+  const animationIndex =
+
+    data.count;
 
   data.count++;
 
@@ -668,9 +1066,17 @@ function fillCell() {
 
     data.minutesPerCell;
 
-  /* 10マスごとにクッキー */
+  /* =========================
 
-  if (data.count % 10 === 0) {
+     10マスごとにクッキー
+
+  ========================= */
+
+  if (
+
+    data.count % 10 === 0
+
+  ) {
 
     getCookie();
 
@@ -678,21 +1084,39 @@ function fillCell() {
 
   saveData();
 
-  createGrid(animationIndex);
+  createGrid(
+
+    animationIndex
+
+  );
 
   showTotalTime();
 
   showCookieCount();
 
-  /* 60マス完成 */
+  /* =========================
 
-  if (data.count === 60) {
+     60マス完成
 
-    setTimeout(function() {
+  ========================= */
 
-      nextSheet();
+  if (
 
-    }, 1800);
+    data.count === 60
+
+  ) {
+
+    setTimeout(
+
+      function() {
+
+        nextSheet();
+
+      },
+
+      1800
+
+    );
 
   }
 
@@ -700,7 +1124,7 @@ function fillCell() {
 
 /* =========================
 
-   クッキーをゲット
+   クッキー獲得
 
 ========================= */
 
@@ -710,7 +1134,11 @@ function getCookie() {
 
   const area =
 
-    document.getElementById("cookieArea");
+    document.getElementById(
+
+      "cookieArea"
+
+    );
 
   area.innerHTML = "";
 
@@ -718,19 +1146,35 @@ function getCookie() {
 
   const cookie =
 
-    document.createElement("div");
+    document.createElement(
 
-  cookie.className = "cookie";
+      "div"
 
-  cookie.textContent = "🍪";
+    );
 
-  area.appendChild(cookie);
+  cookie.className =
+
+    "cookie";
+
+  cookie.textContent =
+
+    "🍪";
+
+  area.appendChild(
+
+    cookie
+
+  );
 
   /* メッセージ */
 
   const message =
 
-    document.createElement("div");
+    document.createElement(
+
+      "div"
+
+    );
 
   message.className =
 
@@ -740,7 +1184,11 @@ function getCookie() {
 
     "1列完成！クッキーを1個ゲット！";
 
-  area.appendChild(message);
+  area.appendChild(
+
+    message
+
+  );
 
 }
 
@@ -758,7 +1206,15 @@ function nextSheet() {
 
   saveData();
 
-  document.getElementById("cookieArea").innerHTML = "";
+  document
+
+    .getElementById(
+
+      "cookieArea"
+
+    )
+
+    .innerHTML = "";
 
   createGrid();
 
@@ -766,7 +1222,7 @@ function nextSheet() {
 
 /* =========================
 
-   設定を保存
+   設定保存
 
 ========================= */
 
@@ -774,25 +1230,45 @@ function saveSettings() {
 
   const input =
 
-    document.getElementById("minutesInput");
+    document.getElementById(
+
+      "minutesInput"
+
+    );
 
   const value =
 
     Number(input.value);
 
-  if (value < 1) {
+  if (
+
+    value < 1
+
+  ) {
+
+    alert(
+
+      "1以上の数字を入力してください"
+
+    );
 
     return;
 
   }
 
-  data.minutesPerCell = value;
+  data.minutesPerCell =
+
+    value;
 
   saveData();
 
   alert(
 
-    "1マス " + value + "分に設定しました！"
+    "1マス " +
+
+    value +
+
+    "分に設定しました！"
 
   );
 
@@ -800,7 +1276,7 @@ function saveSettings() {
 
 /* =========================
 
-   データをリセット
+   全データリセット
 
 ========================= */
 
@@ -822,7 +1298,9 @@ function resetData() {
 
   data = {
 
-    startDate: new Date().toISOString(),
+    startDate:
+
+      new Date().toISOString(),
 
     sheet: 1,
 
@@ -838,11 +1316,27 @@ function resetData() {
 
   saveData();
 
-  document.getElementById("minutesInput").value =
+  document
 
-    data.minutesPerCell;
+    .getElementById(
 
-  document.getElementById("cookieArea").innerHTML = "";
+      "minutesInput"
+
+    )
+
+    .value =
+
+      data.minutesPerCell;
+
+  document
+
+    .getElementById(
+
+      "cookieArea"
+
+    )
+
+    .innerHTML = "";
 
   showStartDate();
 
@@ -860,9 +1354,17 @@ function resetData() {
 
 ========================= */
 
-document.getElementById("minutesInput").value =
+document
 
-  data.minutesPerCell;
+  .getElementById(
+
+    "minutesInput"
+
+  )
+
+  .value =
+
+    data.minutesPerCell;
 
 showStartDate();
 
